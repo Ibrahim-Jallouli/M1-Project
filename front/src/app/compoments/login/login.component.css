@@ -1,0 +1,96 @@
+/* Center the login card */
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90.8vh;   /* idk*/
+}
+
+/* Style the login card */
+#login-card {
+  max-width: 400px;
+  width: 100%;
+  height: auto; /* Change height to auto for responsiveness */
+  padding: 20px; /* Add padding for better spacing */
+}
+
+/* Style the full-width form fields */
+.full-width {
+  width: 100%;
+  font-size: 16px; /* Increase font size for better readability on smaller screens */
+}
+
+
+.login-button:disabled {
+  background-color: #cccccc; /* Example gray color for disabled state */
+  color: #666666;
+  border: none;
+  cursor: pointer;
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 8px;
+  justify-content: center;
+}
+/* Hover effect for the login button */
+.login-button:hover {
+  background-color: #0056b3; /* Example background color on hover */
+}
+/* Style the login button */
+.login-button {
+  width: 50%;
+  padding: 10px; /* Add padding for better spacing */
+  background-color: #007bff; /* Example background color */
+  color: #fff !important ;/* Example text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  cursor: pointer; /* Add cursor pointer for better user experience */
+  font-weight: bold;
+}
+
+.mat-mdc-card-title{
+  /* Add your custom styles here */
+  color: #333; /* Example text color */
+  font-size: 24px; /* Example font size */
+  font-weight: bold; /* Example font weight */
+  padding-bottom: 40px;
+  text-align: center!important /* Center the text horizontally */
+}
+
+.mat-mdc-card-header {
+  display: flex;
+  padding: 16px 16px 0;
+  justify-content: center;
+}
+
+.buttonVisibility {
+  border: none !important; /* Removes the border */
+  background-color: transparent !important; /* Makes the background transparent */
+  /* Add other CSS properties as needed to adjust the appearance */
+}
+
+
+body {
+  background-image: url('../../../assets/shopping-bag-cart.jpg');
+  background-size: cover; /* or background-size: contain; */
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 600px) {
+  .login-form {
+      padding: 20px; /* Add padding for better spacing on smaller screens */
+  }
+  
+  #login-card {
+      max-width: 100%; /* Make the card take full width on smaller screens */
+  }
+  
+  .full-width {
+      font-size: 14px; /* Further decrease font size for smaller screens */
+  }
+}

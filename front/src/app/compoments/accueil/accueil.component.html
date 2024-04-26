@@ -1,0 +1,37 @@
+<div class="main-container">
+    <div class="content-container">
+        <!-- Your search bar -->
+        <mat-form-field class="search-bar">
+            <input matInput type="text" placeholder="Search products" [(ngModel)]="searchQuery">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="search()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>     
+    
+        <div class="product-card-container">
+            <!-- Loop through products for the current page -->
+            <mat-card class="product-card" *ngFor="let product of products.slice(calculateProductIndex().startIndex, calculateProductIndex().endIndex + 1)">
+                <!-- Your product card content -->
+                <div class="product-image-container">
+                    <img mat-card-image [src]="product.images[0].imageUrl" alt="Product Image" class="product-image">
+                </div>
+                <mat-card-content>
+                    <h2 mat-card-title>{{ product.name }}</h2>
+                    <p mat-card-subtitle>{{ product.description }}</p>
+                    <p>Price: {{ product.price }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Add to Cart</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <button mat-button *ngFor="let page of pagesArray" [class.active]="page === currentPage" (click)="changePage(page)">
+                {{ page }}
+            </button>
+        </div>
+
+    </div>
+</div>

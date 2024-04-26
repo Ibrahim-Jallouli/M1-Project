@@ -1,0 +1,125 @@
+/* Full-height and full-width sidenav container with flex layout */
+.sidenav-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Styling for the expanded sidebar */
+.sidenav {
+  box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.24);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+
+/* Hide all content within the sidebar when collapsed, except the toggle button */
+.sidenav.collapsed .category-button,
+.sidenav.collapsed h3,
+.sidenav.collapsed .subcategory-button,
+.sidenav.collapsed .subcategory-checkbox,
+.sidenav.collapsed mat-slider,
+.sidenav.collapsed button[mat-raised-button],
+.sidenav.collapsed .subcategory-checkbox mat-checkbox {
+  display: none;
+}
+.sidenav.collapsed .labelPrice {
+  display: none;
+}
+
+/* Ensure the menu toggle button is always visible */
+.sidenav .menu-toggle {
+  display: block; /* always show the menu button */
+}
+
+/* Block display for filter-related elements and buttons */
+
+
+/* Spacing and width for checkboxes */
+mat-checkbox {
+  margin-bottom: 15px;
+}
+
+/* Full-width sliders with vertical margins */
+mat-slider {
+  width: 70%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-left: 10%;
+}
+
+button[mat-raised-button] {
+  margin-top: 15%;
+  width: 70%;
+  margin-left: 10%; 
+}
+
+/* Styling for icon buttons with absolute positioning to ensure visibility */
+button[mat-icon-button] {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+/* New styles for category headers */
+.category-button {
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+  text-decoration: none; /* Remove underline from the buttons */
+}
+
+/* Hover effect for category buttons */
+.category-button:hover {
+  background-color: #e0e0e0; /* Light grey background on hover */
+  color: #0056b3; /* Change text color on hover */
+}
+
+/* Active category styling */
+.active-category {
+  background-color: #e1e1e1; /* Slightly darker grey for active category */
+  color: #003366; /* Darker text color for active category */
+  font-weight: bold; /* Make active category text bold */
+}
+
+/* Styles for subcategory buttons */
+.subcategory-button {
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+  margin-left: 20px; /* Add margin to distinguish subcategories */
+}
+
+/* Hover effect for subcategory buttons */
+.subcategory-button:hover {
+  background-color: #d0d0d0;
+  color: #004080;
+}
+
+/* Active subcategory styling */
+.active-subcategory {
+  color: #002040;
+  font-weight: bold;
+}
+
+/* New CSS class for checkboxes within subcategories */
+.subcategory-checkbox {
+  display: block;
+}
+
+
+.labelPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20%;
+  font-weight: bold;
+}

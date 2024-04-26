@@ -1,0 +1,25 @@
+  
+  .header-button {
+    margin-left: auto; /* Automatically pushes the button to the right */
+  }
+  
+
+  .header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .fill-space {
+    flex: 1 1 auto;
+  }
+  
+  .toolbar-logo img {
+    height: 50px; /* Adjust as needed */
+  }
+
+  .new-notification {
+    color: red; /* Change as needed to fit your design */
+  }
+  
+  

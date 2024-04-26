@@ -1,0 +1,54 @@
+<header>
+  <mat-toolbar class="header-toolbar">
+    <!-- Logo on the left -->
+    <a href="/accueil" class="toolbar-logo">
+      <img src="path-to-your-logo" alt="Your Logo">
+    </a>
+    
+    <!-- Spacing element to push icons to the right -->
+    <span class="fill-space"></span>
+
+    <!-- Icons on the right -->
+    <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+      <button mat-icon-button [routerLink]="['/panier']">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu" (click)="resetNewNotificationFlag()">
+        <mat-icon [ngClass]="{'new-notification': hasNewNotifications}">notifications</mat-icon>
+      </button>
+      <mat-menu #notificationMenu="matMenu">
+        <ng-container *ngFor="let notification of notifications; let i = index">
+          <button mat-menu-item (click)="removeNotification(i)">
+            {{ notification }}
+          </button>
+        </ng-container>
+      </mat-menu>
+      
+      
+      <!-- Dropdown menu for logout -->
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <!-- Profile menu item -->
+        <button mat-menu-item [routerLink]="['/profile']">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <!-- Other menu items can be added here -->
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+      
+    </ng-container>
+
+    <!-- Show login/sign in button if the user is not logged in -->
+    <ng-template #loggedOut>
+      <button mat-button (click)="redirectToAuthPage()">
+        {{ buttonText }}
+      </button>
+    </ng-template>
+  </mat-toolbar>
+</header>

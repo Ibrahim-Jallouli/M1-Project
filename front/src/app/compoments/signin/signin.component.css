@@ -1,0 +1,101 @@
+/* Center the sign-in card */
+.signin-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90.8vh;   /* idk*/
+  }
+  
+  /* Style the sign-in card */
+  #signin-card {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+  
+  /* Style the full-width form fields */
+  .full-width {
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  /* Style the sign-in button */
+  .signin-button {
+    width: 50%;
+    padding: 10px; /* Add padding for better spacing */
+    background-color: #007bff; /* Example background color */
+    color: #fff; /* Example text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Add cursor pointer for better user experience */
+    font-weight: bold;
+    align-self: center; /* Center the button horizontally */
+  }
+
+  .signin-button:disabled {
+    background-color: #ccc; /* Example background color */
+    color: #fff; /* Example text color */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+  }
+
+  .buttonVisibility {
+    border: none !important; /* Removes the border */
+    background-color: transparent !important; /* Makes the background transparent */
+    /* Add other CSS properties as needed to adjust the appearance */
+  }
+  
+  /* You might also want to remove the ripple effect */
+  .mat-ripple.mat-button-ripple, .mat-ripple.mat-icon-button-ripple {
+    display: none !important;
+  }
+
+  .mdc-card__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: center;
+  }
+  
+  /* Hover effect for the sign-in button */
+  .signin-button:hover {
+    background-color: #0056b3;
+  }
+  .mat-mdc-card-title{
+    /* Add your custom styles here */
+    color: #333; /* Example text color */
+    font-size: 24px; /* Example font size */
+    font-weight: bold; /* Example font weight */
+    padding-bottom: 40px;
+    text-align: center!important /* Center the text horizontally */
+  }
+  
+  .mat-mdc-card-header {
+    display: flex;
+    padding: 16px 16px 0;
+    justify-content: center;
+  }
+
+  body {
+    background-image: url('../../../assets/shopping.jpg');
+    background-size: cover; /* or background-size: contain; */
+  }
+  
+  /* Media query for responsiveness */
+  @media screen and (max-width: 600px) {
+    .signin-form {
+      padding: 20px;
+    }
+  
+    #signin-card {
+      max-width: 100%;
+    }
+  
+    .full-width {
+      font-size: 14px;
+    }
+  }
+  
