@@ -1,0 +1,28 @@
+.main-layout {
+  display: flex;
+  flex-direction: row; 
+
+}
+  
+.content {
+  flex-grow: 1;
+  transition: margin-left .3s; 
+}
+
+
+.mainSidebar {
+  width: 260px;
+  background-color: #f8f9fa;
+  transition: width .3s;
+}
+
+.mainSidebar.sidebar-collapsed {
+  width: 60px;
+  transition: width .3s;
+}
+
+@media screen and (max-width: 768px) { /* Adjust the max-width value as needed */
+  .mainSidebar {
+    display: none; /* Hide the sidebar on smaller screens */
+  }
+}

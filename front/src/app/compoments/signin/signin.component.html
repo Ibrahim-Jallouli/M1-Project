@@ -1,0 +1,48 @@
+<body>
+  <!-- signin.component.html -->
+  <form id="signin-form" class="signin-form" (ngSubmit)="signIn()" #signinForm="ngForm">
+      <mat-card id="signin-card" class="signin-card">
+          <mat-card-header>
+              <mat-card-title class="signin-title">Sign In</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <mat-form-field class="full-width">
+                  <input matInput placeholder="Email" type="email" id="email-input-signin" name="emailSignin" required email [(ngModel)]="emailSignin" #emailInput="ngModel">
+                  <mat-error *ngIf="emailInput.errors?.['required'] && (emailInput.dirty || emailInput.touched)">
+                      Email is required.
+                  </mat-error>
+                  <mat-error *ngIf="emailInput.errors?.['email'] && (emailInput.dirty || emailInput.touched)">
+                      Please enter a valid email.
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+    <input [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" id="password-input-signin" name="passwordSignin" required [(ngModel)]="passwordSignin" #passwordInput="ngModel">
+    <button class="buttonVisibility" type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+        Password is required.
+    </mat-error>
+</mat-form-field>
+<mat-form-field class="full-width">
+    <input [type]="hideVerifyPassword ? 'password' : 'text'" matInput placeholder="Verify Password" id="verify-password-input-signin" name="verifyPasswordSignin" required [(ngModel)]="verifyPasswordSignin" #verifyPasswordInput="ngModel">
+    <button class="buttonVisibility" type="button" mat-icon-button matSuffix (click)="hideVerifyPassword = !hideVerifyPassword">
+        <mat-icon>{{hideVerifyPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="verifyPasswordSignin !== passwordSignin && verifyPasswordInput.touched">
+        Passwords must match.
+    </mat-error>
+</mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+              <mat-checkbox class="accept-terms" name="termsAccepted" [(ngModel)]="termsAccepted" #termsCheckbox="ngModel" required>
+                  <p style="font-size: 10px;">Accept our <u>terms and conditions</u></p>
+              </mat-checkbox>
+              <mat-error *ngIf="!termsAccepted && termsCheckbox.touched" style="display: block; margin-bottom: 10px;">
+                  You must accept the terms and conditions to proceed.
+              </mat-error>
+              <button type="submit" mat-button color="primary" class="signin-button" [disabled]="!signinForm.form.valid || passwordSignin !== verifyPasswordSignin || !termsAccepted">Sign In</button>
+          </mat-card-actions>
+      </mat-card>
+  </form>
+</body>
