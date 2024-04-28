@@ -1,6 +1,4 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/entities/category';
 import { DataTransferService } from 'src/app/services/data-transfer.service';

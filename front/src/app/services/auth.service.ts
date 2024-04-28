@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return localStorage.getItem('username') !== null 
+    return localStorage.getItem('token') !== null 
     //return this.loginVarible;
   }
 
