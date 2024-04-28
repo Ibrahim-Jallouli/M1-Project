@@ -8,15 +8,16 @@ import { of } from 'rxjs';
 
 export class AuthService {
   constructor(private http: HttpClient) { }
-
+  private baseUrl = 'https://localhost:8080/publicApi'; 
 
   private loginVarible : boolean = false;
 
-  login(username: string, password: string) {
-    const loginPayload = { username, password };
-    //return this.http.post('/api/login', loginPayload)
+  login(email: string, password: string) {
+    const loginPayload = { email, password };
     this.loginVarible = true;
-    return of(true); 
+    console.log('username', email);
+    console.log('password', password);
+    return this.http.post(this.baseUrl+'/auth/login', loginPayload)
   }
 
   signIn(email: string, password: string) {
@@ -33,6 +34,6 @@ export class AuthService {
   logout() {
     this.loginVarible = false;
     localStorage.removeItem('username');
-    
+    localStorage.removeItem('token');
   }
 }

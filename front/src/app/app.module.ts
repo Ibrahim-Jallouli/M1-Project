@@ -20,7 +20,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HomeComponent } from './compoments/home/home.component';
-
+import { ProductComponent } from './compoments/product/product.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ImageProduitComponent } from './compoments/image-produit/image-produit.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -31,6 +37,8 @@ import { HomeComponent } from './compoments/home/home.component';
     PanierComponent,
     ProfileComponent,
     HomeComponent,
+    ProductComponent,
+    ImageProduitComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +55,11 @@ import { HomeComponent } from './compoments/home/home.component';
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,
-    
-
+    MatGridListModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

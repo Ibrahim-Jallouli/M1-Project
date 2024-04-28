@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../services/product.service'; 
 import { Product } from '../../entities/product'; 
 import { DataTransferService } from '../../services/data-transfer.service'; // Import the DataTransferService
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accueil',
@@ -12,7 +13,8 @@ export class AccueilComponent implements OnInit {
 
   constructor (
     private productService: ProductService,
-    private dataTransferService: DataTransferService // Inject the DataTransferService
+    private dataTransferService: DataTransferService,
+    private router: Router
   ) {}
 
   ngOnInit () {
@@ -30,18 +32,16 @@ export class AccueilComponent implements OnInit {
   products: Product[] = [];
   searchQuery: string = '';
   currentPage: number = 1; 
-  productsPerPage: number = 20; 
+  productsPerPage: number = 12; 
 
   // Method to load products based on category ID
   loadProducts(categoryId?: number) {
     if (categoryId) {
       this.productService.getProductOfCategory(categoryId).subscribe(products => {
-        console.log('Products:', products); 
         this.products = products; 
       });
     } else {
       this.productService.getProducts().subscribe(products => {
-        console.log('Products:', products); 
         this.products = products;
       });
     }
@@ -49,7 +49,21 @@ export class AccueilComponent implements OnInit {
 
   search() {
     console.log('Search Query:', this.searchQuery);
+    // Convert search query to lowercase for case-insensitive search
+    const query = this.searchQuery.toLowerCase().trim();
+    
+    if (query) {
+      // Filter products based on search query
+      this.products = this.products.filter(product =>
+        product.name.toLowerCase().includes(query) || // Assuming 'name' is the property you want to search
+        product.description.toLowerCase().includes(query) // Add more properties if needed
+      );
+    } else {
+      // If search query is empty, reload all products
+      this.loadProducts();
+    }
   }
+  
 
   // Method to calculate the number of pagination buttons
   get pagesArray(): number[] {
@@ -67,4 +81,11 @@ export class AccueilComponent implements OnInit {
   changePage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  navigateToProduct(productId: number) {
+    console.log('Navigating to product:', productId);
+    // Navigate to the product details page with the product ID as a parameter
+    this.router.navigate(['/product', productId]);
 }
+}
+

@@ -14,6 +14,7 @@
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  height: inherit;
 }
 
 
@@ -84,7 +85,7 @@ button[mat-icon-button] {
 
 /* Active category styling */
 .active-category {
-  background-color: #e1e1e1; /* Slightly darker grey for active category */
+  background-color: #c2d0e2; /* Slightly darker grey for active category */
   color: #003366; /* Darker text color for active category */
   font-weight: bold; /* Make active category text bold */
 }
@@ -108,6 +109,7 @@ button[mat-icon-button] {
 .active-subcategory {
   color: #002040;
   font-weight: bold;
+  background-color: rgb(233, 201, 201);
 }
 
 /* New CSS class for checkboxes within subcategories */
@@ -122,4 +124,21 @@ button[mat-icon-button] {
   align-items: center;
   margin-top: 20%;
   font-weight: bold;
+}
+
+/* Hide scrollbar */
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* OR make scrollbar transparent */
+.mat-drawer-inner-container::-webkit-scrollbar {
+  width: 0;
+  background: transparent; /* Change to desired background color */
+}
+
+.cdk-visually-hidden {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
 }

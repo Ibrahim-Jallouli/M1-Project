@@ -12,6 +12,7 @@ import { DataTransferService } from 'src/app/services/data-transfer.service';
 })
 export class SidebarComponent implements  OnInit {
   @Output() stateChange = new EventEmitter<boolean>(); 
+  filtersApplied: boolean = false;
 
   isCollapsed = false; // new property to track collapsed state
   categories: Category[] = [];
@@ -27,6 +28,10 @@ export class SidebarComponent implements  OnInit {
 
   ngOnInit() {
     this.loadCategories();
+    const sidebarCollapsed = localStorage.getItem('sidebarCollapsed');
+    if (sidebarCollapsed == 'false') {
+      this.isCollapsed = true;
+    }
     setTimeout(() => {
       this.toggleSidenav();
     });
@@ -60,6 +65,7 @@ export class SidebarComponent implements  OnInit {
   categoryId(category: Category) {
     console.log(" selected category", category.name ," : ", category.categoryId);
     this.dataTransfer.setSelectedCategory(category.categoryId);
+    this.filtersApplied=true;
   }
   
   formatLabel(value: number): string {
@@ -80,5 +86,14 @@ export class SidebarComponent implements  OnInit {
     this.isCollapsed = !this.isCollapsed;
     this.stateChange.emit(this.isCollapsed);
     this.cdr.detectChanges();
+    localStorage.setItem('sidebarCollapsed', JSON.stringify(this.isCollapsed));
+  }
+
+
+  clearFilters() {
+    this.activeCategory = null;
+    this.activeSubcategory = null;
+    this.dataTransfer.setSelectedCategory(0);
+    this.filtersApplied=false;
   }
 }

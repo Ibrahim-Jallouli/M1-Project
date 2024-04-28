@@ -6,14 +6,17 @@ import { AccueilComponent } from './compoments/accueil/accueil.component';
 import { ProfileComponent } from './compoments/profile/profile.component'; 
 import { PanierComponent } from './compoments/panier/panier.component';
 import { HomeComponent } from './compoments/home/home.component';
+import { ProductComponent } from './compoments/product/product.component';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signin', component: SigninComponent }, 
   { path: 'accueil', component: AccueilComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'panier', component: PanierComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'panier', component: PanierComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
+  { path: 'product/:id', component: ProductComponent },
   { path: '', redirectTo: '/accueil', pathMatch: 'full' } 
 ];
 

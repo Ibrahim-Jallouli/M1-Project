@@ -15,7 +15,8 @@ export class AppComponent {
     this.router.events.pipe(
       filter((event: RouterEvent): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showSidebar = !['/login', '/signin', '/home'].includes(event.urlAfterRedirects);
+      this.showSidebar = !['/login', '/signin', '/home','/profile','/product','/panier'].some(route => event.urlAfterRedirects.startsWith(route));
+
     });
   }
 

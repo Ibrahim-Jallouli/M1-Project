@@ -6,8 +6,8 @@
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Username" id="username-input" name="username"
-                 required [(ngModel)]="username" #usernameInput="ngModel">
+          <input matInput placeholder="email" id="username-input" name="username"
+                 required [(ngModel)]="email" #usernameInput="ngModel">
           <mat-error *ngIf="usernameInput.errors?.['required'] && (usernameInput.dirty || usernameInput.touched)">
             Username is required.
           </mat-error>

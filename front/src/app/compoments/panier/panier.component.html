@@ -1,1 +1,46 @@
-<p>panier works!</p>
+<!-- panel.component.html -->
+<h2 class="ShoppingTitle">Shopping Cart</h2>
+<div class="table-container">
+  <mat-card>
+    <mat-table [dataSource]="cartItems">
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{ product.name }} </mat-cell>
+      </ng-container>
+
+      <!-- Product Image Column -->
+      <ng-container matColumnDef="productImage">
+        <mat-header-cell *matHeaderCellDef> Product Image </mat-header-cell>
+        <mat-cell *matCellDef="let product">
+          <img [src]="product.images[0].imageUrl" alt="Product Image" width="40" height="55" style="margin-top: 10px; margin-bottom: 10px;">
+        </mat-cell>
+      </ng-container>
+
+      <!-- Product Price Column -->
+      <ng-container matColumnDef="productPrice">
+        <mat-header-cell *matHeaderCellDef> Product Price </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{ product.price }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let item"> <!-- Access item instead of product -->
+          {{ item.quantity }} <!-- Display the quantity from item -->
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let product; let i = index"> <!-- Assigning 'i' as the index -->
+          <button mat-icon-button color="warn" (click)="removeFromCart(i)"> <!-- Passing 'i' as the index -->
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card>
+</div>

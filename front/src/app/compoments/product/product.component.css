@@ -1,0 +1,113 @@
+.big-container {
+  display: grid;
+}
+.product-details {
+    display: grid;
+    justify-content: center; 
+    align-items: center; 
+    height: 80vh; 
+  }
+  
+  .product-images {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .product-info {
+    flex: 2;
+  }
+  
+  /* Style for product images */
+  img {
+    max-width: 100%; /* Ensure images don't exceed their container width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Prevents whitespace below image */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    margin-left: 20px;
+  }
+  
+  /* Style for mat-card */
+  mat-card {
+    width: 100%; /* Ensure the card occupies the full width of its container */
+  }
+  
+  /* Style for mat-grid-list */
+  mat-grid-tile {
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+  /* Style for mat-grid-tile content */
+  mat-grid-tile-content {
+    text-align: center; /* Center align content within grid tile */
+  }
+  
+
+  /* panel.component.css */
+/* styles.css (global styles file) */
+/* panel.component.css */
+::ng-deep .mat-snack-bar-container.custom-snackbar {
+    background-color: rgb(65, 252, 134); /* Set background color to green */
+    color: white; /* Set text color to white */
+  }
+  
+  
+
+.otherProducts {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    width: 70%; /* Adjust width as needed */
+    margin: 0 auto; /* Center the container itself horizontally */
+  }
+  .product-card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to new line */
+}
+
+.product-card {
+    flex: 1 0 calc(25% - 40px); /* Four cards per row with 40px spacing */
+    margin-bottom: 40px; /* Spacing between rows */
+    margin-right: 20px; /* Spacing on the right */
+    transition: box-shadow 0.3s ease; /* Adding transition effect to box-shadow */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.product-card:nth-child(4n) {
+    margin-right: 0; /* Remove right margin for the last item in each row */
+}
+
+.product-card:hover {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
+    background-color: rgb(244, 248, 250);
+}
+
+.product-image-container {
+    width: 100%;
+    padding-top: 75%; /* Adjust this value to match your desired aspect ratio */
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+h2 {
+  text-align: center; /* Center the text horizontally */
+  margin-bottom: 20px; /* Add some space below the heading */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+
+
+
+.form-group{
+  display: flex;
+  justify-content: space-evenly;
+}

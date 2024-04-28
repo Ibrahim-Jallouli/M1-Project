@@ -1,0 +1,54 @@
+<div class="big-container">
+  <div class="product-details">
+    <div class="product-images">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>Product Images</mat-card-title>
+          <mat-card-subtitle>Click to enlarge</mat-card-subtitle>
+          <mat-grid-list cols="3" rowHeight="200px">
+            <mat-grid-tile *ngFor="let image of product?.images">
+              <img [src]="image.imageUrl" alt="Product Image" (click)="openImage(image.imageUrl)">
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="product-info">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>{{ product?.name }}</mat-card-title>
+          <mat-card-subtitle>{{ product?.description }}</mat-card-subtitle>
+          <p>Price: {{ product?.price }}</p>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <mat-select id="quantity" [(ngModel)]="selectedQuantity">
+                <mat-option *ngFor="let quantity of quantities" [value]="quantity">{{ quantity }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button style="background-color: rgb(0, 46, 126); color: white; font-weight: bold; margin-top: 10px;" (click)="product && addToCart(product, selectedQuantity)">
+              Buy it Now !
+            </button>
+          </div>
+          
+          
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <h2>Other Products from the same category</h2>
+  <div class="otherProducts">
+      <div class="product-card-container">
+        <mat-card class="product-card" *ngFor="let otherProduct of productsFromSameCategory" (click)="navigateToProduct(otherProduct.productId)">
+          <div class="product-image-container">
+            <img mat-card-image [src]="otherProduct.images[0].imageUrl" alt="Product Image" class="product-image">
+          </div>
+          <mat-card-content>
+            <h2 mat-card-title>{{ otherProduct.name }}</h2>
+            <p>Price: {{ otherProduct.price }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  </div>
+</div>

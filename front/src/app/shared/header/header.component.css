@@ -15,7 +15,9 @@
   }
   
   .toolbar-logo img {
-    height: 50px; /* Adjust as needed */
+    height: 125px; /* Adjust as needed */
+    width: 200px;
+    margin-left: -50px;
   }
 
   .new-notification {

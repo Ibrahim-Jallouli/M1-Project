@@ -10,7 +10,7 @@
     
         <div class="product-card-container">
             <!-- Loop through products for the current page -->
-            <mat-card class="product-card" *ngFor="let product of products.slice(calculateProductIndex().startIndex, calculateProductIndex().endIndex + 1)">
+            <mat-card class="product-card" *ngFor="let product of products.slice(calculateProductIndex().startIndex, calculateProductIndex().endIndex + 1)" (click)="navigateToProduct(product.productId)">
                 <!-- Your product card content -->
                 <div class="product-image-container">
                     <img mat-card-image [src]="product.images[0].imageUrl" alt="Product Image" class="product-image">
@@ -25,6 +25,7 @@
                 </mat-card-actions>
             </mat-card>
         </div>
+        
 
         <!-- Pagination -->
         <div class="pagination-container">
