@@ -8,7 +8,7 @@ import { Category } from '../entities/category';
   providedIn: 'root'
 })
 export class CategoryService {
-  private baseUrl = 'https://localhost:8080/publicApi'; 
+  private baseUrl = 'http://localhost:8080/publicApi'; 
 
   constructor(private http: HttpClient) {}
 
