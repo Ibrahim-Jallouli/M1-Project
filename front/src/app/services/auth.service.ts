@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 
 export class AuthService {
   constructor(private http: HttpClient) { }
-  private baseUrl = 'https://localhost:8080/publicApi'; 
+  private baseUrl = 'http://localhost:8080/publicApi'; 
 
   private loginVarible : boolean = false;
 

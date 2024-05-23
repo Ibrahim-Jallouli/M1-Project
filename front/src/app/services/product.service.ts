@@ -7,7 +7,7 @@ import { Product } from '../entities/product'; // Import the Product interface
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://localhost:8080/publicApi'; 
+  private apiUrl = 'http://localhost:8080/publicApi'; 
 
   constructor(private http: HttpClient) {}
 
