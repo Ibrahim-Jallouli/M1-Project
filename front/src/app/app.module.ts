@@ -27,6 +27,7 @@ import { ImageProduitComponent } from './compoments/image-produit/image-produit.
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { PaymentComponent } from './compoments/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
     HomeComponent,
     ProductComponent,
     ImageProduitComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

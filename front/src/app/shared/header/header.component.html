@@ -9,10 +9,10 @@
     <span class="fill-space"></span>
 
     <!-- Icons on the right -->
+    <button mat-icon-button [routerLink]="['/panier']">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
     <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
-      <button mat-icon-button [routerLink]="['/panier']">
-        <mat-icon>shopping_cart</mat-icon>
-      </button>
       <button mat-icon-button [matMenuTriggerFor]="notificationMenu" (click)="resetNewNotificationFlag()">
         <mat-icon [ngClass]="{'new-notification': hasNewNotifications}">notifications</mat-icon>
       </button>

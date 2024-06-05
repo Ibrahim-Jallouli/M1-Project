@@ -14,4 +14,17 @@
     font-size: 30px;
     color: #282b2e;
 }
-  
+
+.button-container {
+  position: relative;
+}
+
+.checkout-button {
+  margin-top: 30px;
+  position: absolute;
+  right:40px;
+  font-size: 16px;
+  font-style: bold;
+  background-color: #06b400;
+  color:white;
+}

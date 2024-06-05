@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/entities/product';
 import { DataTransferService } from 'src/app/services/data-transfer.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panier',
@@ -14,12 +15,14 @@ export class PanierComponent implements OnInit {
   dataSource: any;
   cartItems: Product[] = [];
 
-  constructor(private dataTransferService: DataTransferService) {}
+
+  constructor(private dataTransferService: DataTransferService, private router: Router) {}
 
   ngOnInit() {
     const savedCartItems = localStorage.getItem('cartItems');
     this.cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
     this.dataSource = new MatTableDataSource(this.cartItems);
+
   }
 
   
@@ -45,5 +48,13 @@ export class PanierComponent implements OnInit {
     this.dataSource = new MatTableDataSource(cartItems);
     this.ngOnInit();
   }
+
+
+  payment(){
+    this.router.navigate(['/payment']);
+    console.log('Payment');
+  }
   
 }
+
+
