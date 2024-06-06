@@ -36,6 +36,7 @@ export class PanierComponent implements OnInit {
 
   }
 
+
   
   removeFromCart(index: number) {
     console.log('Removing item at index:', index);
@@ -57,6 +58,7 @@ export class PanierComponent implements OnInit {
   
     // Update the data source for the table
     this.dataSource = new MatTableDataSource(cartItems);
+    this.calculateTotal();
     this.ngOnInit();
   }
 
