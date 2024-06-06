@@ -110,79 +110,74 @@ export class ProductComponent implements OnInit {
 
     // Retrieve existing cart items from local storage
     const cartItemsJson = localStorage.getItem('cartItems');
+    let cartItems: Product[] = cartItemsJson ? JSON.parse(cartItemsJson) : [];
 
-    let cartItems: Product[] = [];
-    if (cartItemsJson) {
-        // Parse the cart items from JSON
-        cartItems = JSON.parse(cartItemsJson);
-
-        if (!Array.isArray(cartItems)) {
-            // If the parsed data is not an array, fallback to an empty array
-            cartItems = [];
-        }
+    if (!Array.isArray(cartItems)) {
+        cartItems = [];
     }
 
     const existingItemIndex = cartItems.findIndex(item => item.productId === product.productId);
 
     if (existingItemIndex !== -1) {
-        // If the product already exists in the cart, update its quantity
+        // Product exists in cart, update its quantity
         const updatedQuantity = cartItems[existingItemIndex].quantity + selectedQuantity;
         if (updatedQuantity <= product.quantity) {
             cartItems[existingItemIndex].quantity = updatedQuantity;
         } else {
-            // Notify the user that there is not enough quantity available
+            // Notify user of insufficient quantity
             this.snackBar.open(`Not enough quantity available for product ${product.name}`, 'Dismiss', {
                 duration: 3000,
                 horizontalPosition: 'start',
                 verticalPosition: 'bottom',
                 panelClass: ['custom-snackbar'],
             });
-            return; // Exit the function without updating the cart
+            return;
         }
     } else {
-        // If the product is not in the cart, add it
-        const productStored = { ...product, quantity: selectedQuantity };
-        cartItems.push(productStored);
+        // Product not in cart, add it
+        cartItems.push({ ...product, quantity: selectedQuantity });
     }
 
-    // Check if the user is connected by looking for a token in the local storage
+    // Store the updated cart items back to local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    // Notify user of successful addition to local storage
+    this.snackBar.open(`Product ${product.name} added`, 'Ok', {
+        duration: 3000,
+        horizontalPosition: 'start',
+        verticalPosition: 'bottom',
+        panelClass: ['custom-snackbar'],
+    });
+
+    // Check if user is authenticated
     const token = this.authService.getToken();
     if (token) {
-        // User is connected, send cart item to the server
+        // User is authenticated, send cart item to the server
         const cartItemPayload = {
             quantity: selectedQuantity,
             cartId: this.authService.getCartId(),
-            productId: product.productId
+            productId: product.productId,
         };
-    
+
         this.panierService.addToCartAPI(cartItemPayload, token).subscribe({
-          next: (response) => {
-              console.log('Cart item added:', response);
-              this.snackBar.open(`Product ${product.name} added`, 'Ok', {
-                  duration: 3000,
-                  horizontalPosition: 'start',
-                  verticalPosition: 'bottom',
-                  panelClass: ['custom-snackbar'],
-              });
-          },
-          error: (error) => {
-              console.error('Error adding product to cart:', error);
-              this.snackBar.open(`Error adding product ${product.name} to cart`, 'Dismiss', {
-                  duration: 3000,
-                  horizontalPosition: 'start',
-                  verticalPosition: 'bottom',
-                  panelClass: ['custom-snackbar'],
-              });
-          }}
-        );
-    } else {
-        // User is not connected, store the updated cart items back to local storage
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        this.snackBar.open(`Product ${product.name} added`, 'Ok', {
-            duration: 3000,
-            horizontalPosition: 'start',
-            verticalPosition: 'bottom',
-            panelClass: ['custom-snackbar'],
+            next: (response) => {
+                console.log('Cart item added:', response);
+                this.snackBar.open(`Product ${product.name} added to server`, 'Ok', {
+                    duration: 3000,
+                    horizontalPosition: 'start',
+                    verticalPosition: 'bottom',
+                    panelClass: ['custom-snackbar'],
+                });
+            },
+            error: (error) => {
+                console.error('Error adding product to cart:', error);
+                this.snackBar.open(`Error adding product ${product.name} to server`, 'Dismiss', {
+                    duration: 3000,
+                    horizontalPosition: 'start',
+                    verticalPosition: 'bottom',
+                    panelClass: ['custom-snackbar'],
+                });
+            }
         });
     }
 }

@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   private baseUrl = 'http://localhost:8080/publicApi';
-  private baseUrlSecure =  'http://localhost:8080//secureApi';
+  private baseUrlSecure =  'http://localhost:8080/secureApi';
   private loginVariable: boolean = false;
   private tokenKey = 'token';
   private user: any = null;
@@ -22,19 +22,22 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/auth/login`, loginPayload);
   }
 
-    // Method to log out the user
-    logout(email: string, token: string|null): Observable<any> {
-      this.loginVariable = false;
-      localStorage.removeItem('username');
-      localStorage.removeItem(this.tokenKey);
+  // Method to log out the user
+  logout(email: string, token: string|null): Observable<any> {
+    this.loginVariable = false;
+    localStorage.removeItem('username');
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('cartItems');
+    console.log("this is the email in the logout:", email);
 
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
 
-      return this.http.post(`${this.baseUrlSecure}/auth/logout`, { email }, { headers });
-    }
+    return this.http.post(`${this.baseUrlSecure}/auth/logout`, { email }, { headers, responseType: 'text' as 'json' });
+  }
+
 
 
   // Method to sign in the user

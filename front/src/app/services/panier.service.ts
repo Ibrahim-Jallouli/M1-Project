@@ -13,11 +13,12 @@ export class PanierService {
 
   public addToCartAPI(cartItem: { quantity: number, cartId: number, productId: number }, token: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${this.baseUrl}/cartItem/addToCart`, cartItem, { headers });
-  }
+    return this.http.post(`${this.baseUrl}/cartItem/addToCart`, cartItem, { headers, responseType: 'text' });
+}
+
 
 
   public getCartItemsAPI(cartId: number, token: string|null): Observable<any> {
