@@ -8,7 +8,7 @@ import { DataTransferService } from 'src/app/services/data-transfer.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements  OnInit {
+export class SidebarComponent implements OnInit {
   @Output() stateChange = new EventEmitter<boolean>(); 
   filtersApplied: boolean = false;
 
@@ -16,6 +16,7 @@ export class SidebarComponent implements  OnInit {
   categories: Category[] = [];
   activeCategory: string | null = null;
   activeSubcategory: string | null = null;
+  activeFilter: string | null = null;
   someVariable: number = 0;
 
   constructor(
@@ -45,25 +46,28 @@ export class SidebarComponent implements  OnInit {
   toggleCategory(category: Category) {
     if (this.activeCategory === category.name) {
       this.activeCategory = null;
-      this.activeSubcategory = null; 
+      this.activeSubcategory = null;
+      this.activeFilter = null;
     } else {
       this.activeCategory = category.name;
     }
   }
   
   toggleSubcategory(subcategory: Category) {
-    console.log(" selected subcategory", subcategory.name ," : ", subcategory.categoryId);
+    console.log("Selected subcategory", subcategory.name, ":", subcategory.categoryId);
     if (this.activeSubcategory === subcategory.name) {
       this.activeSubcategory = null;
+      this.activeFilter = null;
     } else {
       this.activeSubcategory = subcategory.name;
     }
   }
 
-  categoryId(category: Category) {
-    console.log(" selected category", category.name ," : ", category.categoryId);
-    this.dataTransfer.setSelectedCategory(category.categoryId);
-    this.filtersApplied=true;
+  categoryId(filter: Category) {
+    console.log("Selected filter", filter.name, ":", filter.categoryId);
+    this.activeFilter = filter.name;
+    this.dataTransfer.setSelectedCategory(filter.categoryId);
+    this.filtersApplied = true;
   }
   
   formatLabel(value: number): string {
@@ -87,11 +91,15 @@ export class SidebarComponent implements  OnInit {
     localStorage.setItem('sidebarCollapsed', JSON.stringify(this.isCollapsed));
   }
 
+  applyFilters() {
+    this.filtersApplied = true;
+  }
 
   clearFilters() {
     this.activeCategory = null;
     this.activeSubcategory = null;
+    this.activeFilter = null;
     this.dataTransfer.setSelectedCategory(0);
-    this.filtersApplied=false;
+    this.filtersApplied = false;
   }
 }

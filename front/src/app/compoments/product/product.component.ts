@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Category } from 'src/app/entities/category';
+import { PanierService } from '../../services/panier.service'; // Import the ProductService
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -38,7 +40,9 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private panierService: PanierService,
+    private authService:AuthService
   ) {}
 
   ngOnInit(): void {
@@ -104,13 +108,6 @@ export class ProductComponent implements OnInit {
   addToCart(product: Product, selectedQuantity: number): void {
     console.log("quantity", selectedQuantity);
 
-    this.snackBar.open(`Product ${product.name} added`, 'Ok', {
-        duration: 3000,
-        horizontalPosition: 'start',
-        verticalPosition: 'bottom',
-        panelClass: ['custom-snackbar'],
-    });
-
     // Retrieve existing cart items from local storage
     const cartItemsJson = localStorage.getItem('cartItems');
 
@@ -148,8 +145,47 @@ export class ProductComponent implements OnInit {
         cartItems.push(productStored);
     }
 
-    // Store the updated cart items back to local storage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    // Check if the user is connected by looking for a token in the local storage
+    const token = this.authService.getToken();
+    if (token) {
+        // User is connected, send cart item to the server
+        const cartItemPayload = {
+            quantity: selectedQuantity,
+            cartId: this.authService.getCartId(),
+            productId: product.productId
+        };
+    
+        this.panierService.addToCartAPI(cartItemPayload, token).subscribe({
+          next: (response) => {
+              console.log('Cart item added:', response);
+              this.snackBar.open(`Product ${product.name} added`, 'Ok', {
+                  duration: 3000,
+                  horizontalPosition: 'start',
+                  verticalPosition: 'bottom',
+                  panelClass: ['custom-snackbar'],
+              });
+          },
+          error: (error) => {
+              console.error('Error adding product to cart:', error);
+              this.snackBar.open(`Error adding product ${product.name} to cart`, 'Dismiss', {
+                  duration: 3000,
+                  horizontalPosition: 'start',
+                  verticalPosition: 'bottom',
+                  panelClass: ['custom-snackbar'],
+              });
+          }}
+        );
+    } else {
+        // User is not connected, store the updated cart items back to local storage
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        this.snackBar.open(`Product ${product.name} added`, 'Ok', {
+            duration: 3000,
+            horizontalPosition: 'start',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+        });
+    }
 }
+
 
 }

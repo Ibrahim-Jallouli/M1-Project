@@ -17,15 +17,13 @@
   height: inherit;
 }
 
-
 /* Hide all content within the sidebar when collapsed, except the toggle button */
 .sidenav.collapsed .category-button,
 .sidenav.collapsed h3,
 .sidenav.collapsed .subcategory-button,
-.sidenav.collapsed .subcategory-checkbox,
+.sidenav.collapsed .filter-button,
 .sidenav.collapsed mat-slider,
-.sidenav.collapsed button[mat-raised-button],
-.sidenav.collapsed .subcategory-checkbox mat-checkbox {
+.sidenav.collapsed button[mat-raised-button] {
   display: none;
 }
 .sidenav.collapsed .labelPrice {
@@ -37,38 +35,7 @@
   display: block; /* always show the menu button */
 }
 
-/* Block display for filter-related elements and buttons */
-
-
-/* Spacing and width for checkboxes */
-mat-checkbox {
-  margin-bottom: 15px;
-}
-
-/* Full-width sliders with vertical margins */
-mat-slider {
-  width: 70%;
-  margin-top: 10%;
-  margin-bottom: 10%;
-  margin-left: 10%;
-}
-
-button[mat-raised-button] {
-  margin-top: 15%;
-  width: 70%;
-  margin-left: 10%; 
-}
-
-/* Styling for icon buttons with absolute positioning to ensure visibility */
-button[mat-icon-button] {
-  margin: 0;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
-}
-
-/* New styles for category headers */
+/* Category button styling */
 .category-button {
   cursor: pointer;
   padding: 10px;
@@ -112,18 +79,61 @@ button[mat-icon-button] {
   background-color: rgb(233, 201, 201);
 }
 
-/* New CSS class for checkboxes within subcategories */
-.subcategory-checkbox {
-  display: block;
+/* Styles for filter buttons */
+.filter-button {
+  display: block; /* Ensure buttons are displayed as block elements */
+  width: 90px; /* Adjust width to account for margins */
+  margin-left: 40px; /* Add margin to distinguish filters */
+  margin-bottom: 5px;
+  margin-top: 5px;
+  background-color: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: left;
 }
 
+/* Hover effect for filter buttons */
+.filter-button:hover {
+  background-color: #e0e0e0;
+}
 
+/* Active filter styling */
+.active-filter {
+  background-color: #d1e0e0;
+  font-weight: bold;
+}
+
+/* Price range label styling */
 .labelPrice {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20%;
   font-weight: bold;
+}
+
+/* Full-width sliders with vertical margins */
+mat-slider {
+  width: 70%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-left: 10%;
+}
+
+button[mat-raised-button] {
+  margin-top: 15%;
+  width: 70%;
+  margin-left: 10%; 
+}
+
+/* Styling for icon buttons with absolute positioning to ensure visibility */
+button[mat-icon-button] {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
 }
 
 /* Hide scrollbar */
@@ -138,7 +148,7 @@ button[mat-icon-button] {
 }
 
 .cdk-visually-hidden {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }

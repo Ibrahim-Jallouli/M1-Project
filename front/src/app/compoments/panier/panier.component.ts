@@ -14,6 +14,9 @@ export class PanierComponent implements OnInit {
   displayedColumns: string[] = ['productName', 'productImage', 'productPrice', 'quantity', 'actions'];
   dataSource: any;
   cartItems: Product[] = [];
+  total: number = 0;
+  deliveryFee: number = 5;
+  deliveryFeeAdded: boolean = false;
 
 
   constructor(private dataTransferService: DataTransferService, private router: Router) {}
@@ -21,6 +24,14 @@ export class PanierComponent implements OnInit {
   ngOnInit() {
     const savedCartItems = localStorage.getItem('cartItems');
     this.cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
+    console.log('Cart Items:', this.cartItems);
+    // Calculate the total price of the items in the cart
+    let sum = 0;
+    for (let i = 0; i < this.cartItems.length; i++) {
+        sum += this.cartItems[i].price;
+    }
+    this.total = sum;
+    
     this.dataSource = new MatTableDataSource(this.cartItems);
 
   }
@@ -54,6 +65,25 @@ export class PanierComponent implements OnInit {
     this.router.navigate(['/payment']);
     console.log('Payment');
   }
+
+
+  calculateTotal() {
+    let sum = 0;
+    for (let i = 0; i < this.cartItems.length; i++) {
+      sum += this.cartItems[i].price;
+    }
+    if (this.deliveryFeeAdded) {
+      sum += this.deliveryFee;
+    }
+    this.total = sum;
+  }
+
+  toggleDeliveryFee() {
+    this.deliveryFeeAdded = !this.deliveryFeeAdded; // Toggle the delivery fee state
+    this.calculateTotal(); // Recalculate the total based on the new state
+  }
+  
+  
   
 }
 

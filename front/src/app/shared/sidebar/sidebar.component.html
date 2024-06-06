@@ -5,37 +5,38 @@
     </button>
     <h3>Product Filters</h3>
 
-<!-- Accordion for main categories -->
-<div *ngFor="let category of categories">
-  <button mat-button class="category-button" (click)="toggleCategory(category)" 
-          [class.active-category]="activeCategory === category.name">
-    {{ category.name }}
-  </button>
-  
-  <!-- Nested accordion for subcategories if the main category is active -->
-  <div *ngIf="activeCategory === category.name">
-    <div *ngFor="let subcategory of category.childCategories">
-      <button mat-button class="subcategory-button" (click)="toggleSubcategory(subcategory)" 
-              [class.active-subcategory]="activeSubcategory === subcategory.name">
-        {{ subcategory.name }}
+    <!-- Accordion for main categories -->
+    <div *ngFor="let category of categories">
+      <button mat-button class="category-button" (click)="toggleCategory(category)" 
+              [class.active-category]="activeCategory === category.name">
+        {{ category.name }}
       </button>
       
-      <!-- Checkboxes for filters under subcategories -->
-      <div *ngIf="activeSubcategory === subcategory.name">
-        <mat-checkbox *ngFor="let filter of subcategory.childCategories" class="subcategory-checkbox" (click)="categoryId(filter)">
-          {{ filter.name }}
-        </mat-checkbox>
+      <!-- Nested accordion for subcategories if the main category is active -->
+      <div *ngIf="activeCategory === category.name">
+        <div *ngFor="let subcategory of category.childCategories">
+          <button mat-button class="subcategory-button" (click)="toggleSubcategory(subcategory)" 
+                  [class.active-subcategory]="activeSubcategory === subcategory.name">
+            {{ subcategory.name }}
+          </button>
+          
+          <!-- Buttons for filters under subcategories if the subcategory is active -->
+          <div *ngIf="activeSubcategory === subcategory.name">
+            <button mat-button *ngFor="let filter of subcategory.childCategories" class="filter-button" 
+                    (click)="categoryId(filter)" [class.active-filter]="activeFilter === filter.name">
+              {{ filter.name }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<label class="labelPrice">Price Range</label>
-    <mat-slider min="0" max="3999" step="10" showTickMarks discrete [displayWith]="formatLabel" (change)="onSliderChange($event)">
+    <label class="labelPrice">Price Range</label>
+    <mat-slider min="15" max="350" step="5" showTickMarks discrete [displayWith]="formatLabel" (change)="onSliderChange($event)">
       <input matSliderThumb>
     </mat-slider>
 
-    <button mat-raised-button color="primary">Apply Filters</button>
+    <button mat-raised-button color="primary" (click)="applyFilters()">Apply Filters</button>
     <button mat-raised-button color="warn" *ngIf="filtersApplied" (click)="clearFilters()">Clear Filters</button>
 
   </mat-sidenav>

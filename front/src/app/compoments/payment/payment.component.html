@@ -1,1 +1,49 @@
-<p>payment works!</p>
+<mat-card class="payment-card">
+    <h2>Payment Information</h2>
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Card Number</mat-label>
+        <input matInput placeholder="1234 5678 9012 3456" formControlName="cardNumber" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name on Card</mat-label>
+        <input matInput placeholder="John Doe" formControlName="cardName" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Expiry Date</mat-label>
+        <input matInput placeholder="MM/YY" formControlName="expiryDate" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>CVV</mat-label>
+        <input matInput placeholder="123" formControlName="cvv" required>
+      </mat-form-field>
+  
+      <h3>Billing Address</h3>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="123 Main St" formControlName="address" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>City</mat-label>
+        <input matInput placeholder="Anytown" formControlName="city" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>State/Province</mat-label>
+        <input matInput placeholder="CA" formControlName="state" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Zip/Postal Code</mat-label>
+        <input matInput placeholder="12345" formControlName="zip" required>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="!paymentForm.valid">Submit Payment</button>
+    </form>
+  </mat-card>
+  

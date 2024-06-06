@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service'; 
 import { NotificationsService } from 'src/app/services/notifications.service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,6 +14,9 @@ export class HeaderComponent implements OnInit {
   buttonText: string = '';
   notifications: string[] = [];
   hasNewNotifications: boolean = false;
+  email: string = "";
+  token: string |null="";
+  
 
   constructor(private router: Router,public authService: AuthService, private notificationsService: NotificationsService) { }
 
@@ -57,9 +61,19 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-    this.clearNotifications();
+    this.email=this.authService.getEmail();
+    this.token = this.authService.getToken();
+    this.authService.logout(this.email,this.token).subscribe({
+      next: (response) => {
+        console.log('Logout successful', response);
+        this.router.navigate(['/login']);
+        this.clearNotifications();
+      },
+      error: (error) => {
+        console.error('Logout failed', error);
+        // Handle error (e.g., show error message)
+      }
+    });
   }
 
   clearNotifications() {

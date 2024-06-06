@@ -1,39 +1,101 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
   constructor(private http: HttpClient) { }
-  private baseUrl = 'http://localhost:8080/publicApi'; 
 
-  private loginVarible : boolean = false;
+  private baseUrl = 'http://localhost:8080/publicApi';
+  private baseUrlSecure =  'http://localhost:8080//secureApi';
+  private loginVariable: boolean = false;
+  private tokenKey = 'token';
+  private user: any = null;
 
-  login(email: string, password: string) {
+  // Method to log in the user
+  login(email: string, password: string): Observable<any> {
     const loginPayload = { email, password };
-    this.loginVarible = true;
-    console.log('username', email);
-    console.log('password', password);
-    return this.http.post(this.baseUrl+'/auth/login', loginPayload)
+    this.loginVariable = true;
+    return this.http.post(`${this.baseUrl}/auth/login`, loginPayload);
   }
 
+    // Method to log out the user
+    logout(email: string, token: string|null): Observable<any> {
+      this.loginVariable = false;
+      localStorage.removeItem('username');
+      localStorage.removeItem(this.tokenKey);
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+
+      return this.http.post(`${this.baseUrlSecure}/auth/logout`, { email }, { headers });
+    }
+
+
+  // Method to sign in the user
   signIn(email: string, password: string) {
     const signInPayload = { email, password };
-    //return this.http.post('/api/signin', signInPayload); 
+    // return this.http.post('/api/signin', signInPayload); 
     return of({ success: true }); 
   }
 
+  // Method to check if the user is logged in
   isLoggedIn() {
-    return localStorage.getItem('token') !== null 
-    //return this.loginVarible;
+    return localStorage.getItem(this.tokenKey) !== null;
+    // return this.loginVariable;
   }
 
-  logout() {
-    this.loginVarible = false;
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
+  // Method to save the token and decode it
+  setToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+    this.decodeToken(token);
+  }
+
+  // Method to get the token from local storage
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  // Method to decode the token
+  private decodeToken(token: string): void {
+    this.user = jwtDecode(token);
+  }
+
+  // Method to get the user information from the token
+  getUser(): any {
+    if (!this.user) {
+      const token = this.getToken();
+      if (token) {
+        this.decodeToken(token);
+      }
+    }
+    return this.user;
+  }
+
+  getRole(): string | null {
+    const user = this.getUser();
+    return user ? user.role : null;
+  }
+
+
+  getUserId(): string | null {
+    const user = this.getUser();
+    return user ? user.userId : null;
+  }
+
+
+  getCartId(): number {
+    const user = this.getUser();
+    return user ? user.cartId : null;
+  }
+
+  getEmail(): string {
+    const user = this.getUser();
+    return user ? user.sub: null;
   }
 }

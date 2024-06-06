@@ -44,7 +44,12 @@
     </mat-table>
   </mat-card>
   <div class="button-container">
-    <button mat-raised-button class="checkout-button" (click)="payment()">Checkout</button>
+    <label class="checkout-checkbox">
+      <input type="checkbox" (change)="toggleDeliveryFee()"> Add Delivery Fee (5€)
+    </label>
+    <label class="checkout-label">Total: {{ total }} €</label>
+    <button class="checkout-button" (click)="payment()">Checkout</button>
   </div>
+  
   
 </div>

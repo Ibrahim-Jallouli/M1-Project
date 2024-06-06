@@ -19,12 +19,37 @@
   position: relative;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.checkout-checkbox {
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: bold; /* Use font-weight for bold text */
+  color: #333;
+}
+
+.checkout-label {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold; /* Use font-weight for bold text */
+}
+
 .checkout-button {
-  margin-top: 30px;
-  position: absolute;
-  right:40px;
+  margin-top: 20px;
   font-size: 16px;
-  font-style: bold;
+  font-weight: bold; /* Use font-weight for bold text */
   background-color: #06b400;
-  color:white;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #04a300; /* Slightly darker green for hover effect */
 }
