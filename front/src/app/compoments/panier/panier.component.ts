@@ -4,6 +4,7 @@ import { Product } from 'src/app/entities/product';
 import { DataTransferService } from 'src/app/services/data-transfer.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-panier',
@@ -19,18 +20,14 @@ export class PanierComponent implements OnInit {
   deliveryFeeAdded: boolean = false;
 
 
-  constructor(private dataTransferService: DataTransferService, private router: Router) {}
+  constructor(private dataTransferService: DataTransferService, private router: Router, private authService:AuthService) {}
 
   ngOnInit() {
     const savedCartItems = localStorage.getItem('cartItems');
     this.cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
     console.log('Cart Items:', this.cartItems);
     // Calculate the total price of the items in the cart
-    let sum = 0;
-    for (let i = 0; i < this.cartItems.length; i++) {
-        sum += this.cartItems[i].price;
-    }
-    this.total = sum;
+    this.calculateTotal();
     
     this.dataSource = new MatTableDataSource(this.cartItems);
 
@@ -59,33 +56,40 @@ export class PanierComponent implements OnInit {
     // Update the data source for the table
     this.dataSource = new MatTableDataSource(cartItems);
     this.calculateTotal();
+    const token =this.authService.getToken();
+    if(token){
+      /*this.panierService.removeFromCart(index,token).subscribe((response) => {
+        console.log('Response:', response);
+      });*/
+      console.log("okayy bb");
+    }
+
+
     this.ngOnInit();
   }
 
 
   payment(){
     this.router.navigate(['/payment']);
-    console.log('Payment');
   }
 
 
   calculateTotal() {
     let sum = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
-      sum += this.cartItems[i].price;
+      sum += this.cartItems[i].price* this.cartItems[i].quantity ;
     }
     if (this.deliveryFeeAdded) {
       sum += this.deliveryFee;
     }
     this.total = sum;
+    this.total = parseFloat(this.total.toFixed(2));
   }
 
   toggleDeliveryFee() {
     this.deliveryFeeAdded = !this.deliveryFeeAdded; // Toggle the delivery fee state
     this.calculateTotal(); // Recalculate the total based on the new state
   }
-  
-  
   
 }
 
