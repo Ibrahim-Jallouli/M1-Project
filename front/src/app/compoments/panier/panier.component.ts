@@ -48,6 +48,7 @@ export class PanierComponent implements OnInit {
     // Parse the cart items from JSON
     const cartItems: Product[] = JSON.parse(savedCartItems);
   
+    let currentProductId= cartItems[index].productId;
     // Remove the item at the specified index from the cart items array
     cartItems.splice(index, 1);
   
@@ -59,7 +60,7 @@ export class PanierComponent implements OnInit {
     this.calculateTotal();
     const token =this.authService.getToken();
     if(token){
-      this.panierService.removeFromCartAPI(this.authService.getCartId(),cartItems[index].productId,token).subscribe({
+      this.panierService.removeFromCartAPI(this.authService.getCartId(),currentProductId,token).subscribe({
         next: data => {
           console.log('Data:', data);
         },
@@ -68,7 +69,6 @@ export class PanierComponent implements OnInit {
         }
       });
     }
-
 
     this.ngOnInit();
   }
