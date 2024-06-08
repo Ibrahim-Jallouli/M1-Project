@@ -59,7 +59,7 @@ export class PanierComponent implements OnInit {
     this.calculateTotal();
     const token =this.authService.getToken();
     if(token){
-      this.panierService.removeFromCartAPI(1,cartItems[index].productId,token).subscribe({
+      this.panierService.removeFromCartAPI(this.authService.getCartId(),cartItems[index].productId,token).subscribe({
         next: data => {
           console.log('Data:', data);
         },
