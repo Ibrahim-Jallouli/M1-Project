@@ -5,6 +5,7 @@ import { DataTransferService } from 'src/app/services/data-transfer.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { PanierService } from 'src/app/services/panier.service';
 
 @Component({
   selector: 'app-panier',
@@ -20,7 +21,7 @@ export class PanierComponent implements OnInit {
   deliveryFeeAdded: boolean = false;
 
 
-  constructor(private dataTransferService: DataTransferService, private router: Router, private authService:AuthService) {}
+  constructor(private dataTransferService: DataTransferService, private router: Router, private authService:AuthService, private panierService:PanierService) {}
 
   ngOnInit() {
     const savedCartItems = localStorage.getItem('cartItems');
@@ -58,10 +59,14 @@ export class PanierComponent implements OnInit {
     this.calculateTotal();
     const token =this.authService.getToken();
     if(token){
-      /*this.panierService.removeFromCart(index,token).subscribe((response) => {
-        console.log('Response:', response);
-      });*/
-      console.log("okayy bb");
+      this.panierService.removeFromCartAPI(1,cartItems[index].productId,token).subscribe({
+        next: data => {
+          console.log('Data:', data);
+        },
+        error: error => {
+          console.error('Error:', error);
+        }
+      });
     }
 
 
@@ -84,6 +89,7 @@ export class PanierComponent implements OnInit {
     }
     this.total = sum;
     this.total = parseFloat(this.total.toFixed(2));
+    console.log('Total:', this.total);
   }
 
   toggleDeliveryFee() {

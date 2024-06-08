@@ -28,5 +28,14 @@ export class PanierService {
     });
     return this.http.get(`${this.baseUrl}/cart/allCartItems/${cartId}`, { headers });
   }
+
+
+  public removeFromCartAPI(cartId:number,cartItemId:number, token: string|null): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete(`${this.baseUrl}/cart/deleteOneById/${cartId}/${cartItemId}`, { headers});
+  }
   
 }
